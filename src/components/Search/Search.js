@@ -1,13 +1,14 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
 import GiphyContext from '../../context/GiphyContext'
 import './Search.css'
 import Gifs from './Gifs'
-export default class Search extends Component {
+export default function Search() {
 
-    static contextType = GiphyContext
+    const context = useContext(GiphyContext)
+    // static contextType = GiphyContext
 
-    renderGifs() {
-        const { data } = this.context
+    function renderGifs() {
+        const { data } = context
         return data.map(data =>
             <Gifs
                 key={data.id}
@@ -17,11 +18,9 @@ export default class Search extends Component {
         )
     }
 
-    render() {
         return (
             <div className='gif-list'>
-                {this.renderGifs()}
+                {renderGifs()}
             </div>
         )
     }
-}
