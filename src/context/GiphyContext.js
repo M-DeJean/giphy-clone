@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 
 const GiphyContext = React.createContext({
     data: [],
-    details: {},
+    details: [],
     setError: () => { },
     clearError: () => { },
     setData: () => { },
@@ -11,44 +11,47 @@ const GiphyContext = React.createContext({
 
 export default GiphyContext
 
-export class GiphyProvider extends Component {
-    state = {
-        data: [],
-        details: [],
-        error: null
-    };
+export function GiphyProvider(props) {
 
-    setError = error => {
-        console.error(error)
-        this.setState({ error })
-    }
+    const [data, setData] = useState([])
+    const [details, setDetails] = useState([])
+    const [error, setError] = useState(null)
+    // state = {
+    //     data: [],
+    //     details: [],
+    //     error: null
+    // };
 
-    clearError = () => {
-        this.setState({ error: null })
-    }
+    // setError = error => {
+    //     console.error(error)
+    //     this.setState({ error })
+    // }
 
-    setData = data => {
-        this.setState({ data })
-    }
+    // clearError = () => {
+    //     this.setState({ error: null })
+    // }
 
-    setDetails = details => {
-        this.setState({ details })
-    }
+    // setData = data => {
+    //     this.setState({ data })
+    // }
 
-    render(){
+    // setDetails = details => {
+    //     this.setState({ details })
+    // }
+
+
         const value = {
-            data: this.state.data,
-            details: this.state.details,
-            error: this.state.error,
-            setError: this.setError,
-            clearError: this.clearError,
-            setData: this.setData,
-            setDetails: this.setDetails
+            data,
+            details,
+            error,
+            setError,
+            // clearError: this.clearError,
+            setData,
+            setDetails
         }
         return(
             <GiphyContext.Provider value={value}>
-                {this.props.children}
+                {props.children}
             </GiphyContext.Provider>
         )
     }
-}

@@ -1,33 +1,33 @@
-import React, { Component } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import ApiService from '../../api/api-service'
 import GiphyContext from '../../context/GiphyContext'
 import "./Header.css"
 
-class Header extends Component {
+function Header(props) {
 
-    state = {
-        search: ''
+    const context = useContext(GiphyContext)
+
+    const [search, setSearch] = useState('');
+
+    function handleChange(ev) {
+        setSearch(ev.target.value)
     }
 
-    handleChange = ev => {
-        this.setState({ search: ev.target.value })
-    }
-
-    handleSearch = ev => {
+    function handleSearch(ev){
         ev.preventDefault()
         let _data
-        ApiService.searchGif(this.state.search)
+        ApiService.searchGif(search)
             .then(res => {
                 _data = res.data
-                this.setState({ search: '' })
-                this.context.setData(_data)
-                this.props.history.push('/search')
+                setSearch('')
+                context.setData(_data)
+                props.history.push('/search')
             })
     }
 
 
-    render() {
+ 
         return (
             <div className='header'>
                 <div className='inner-header'>
@@ -36,12 +36,12 @@ class Header extends Component {
                             GIPHY
                         </h1>
                     </Link>
-                    <form onSubmit={this.handleSearch}>
+                    <form onSubmit={handleSearch}>
                         <input className='search-bar'
-                            placeholder='Search all the GIFs'
+                            placeholder='React Hooks'
                             type='text'
-                            value={this.state.search}
-                            onChange={this.handleChange}
+                            value={search}
+                            onChange={handleChange}
                             required
                         />
                         <button type='submit'>
@@ -53,7 +53,6 @@ class Header extends Component {
             </div>
         )
     }
-}
+
 
 export default withRouter(Header)
-Header.contextType = GiphyContext

@@ -1,6 +1,6 @@
 import React from 'react';
 // import Header from '../Header/Header'
-import HeaderHook from '../Header/HeaderHook';
+import Header from '../Header/Header';
 import Search from '../Search/Search';
 import Trending from '../Trending/Trending';
 import Details from '../Details/Details'
@@ -9,7 +9,7 @@ import './App.css'
 export default function App() {
   return (
     <main className='App'>
-      <HeaderHook />
+      <Header />
       <Route
         exact
         path={'/search'}
