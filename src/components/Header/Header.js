@@ -26,6 +26,16 @@ function Header(props) {
             })
     }
 
+    function handleTrending(){
+        let _data
+        ApiService.getTrending()
+            .then(res =>{
+                _data = res.data
+                context.setData(_data)
+                // props.history.push('/trending')
+            })
+    }
+
 
  
         return (
@@ -48,7 +58,7 @@ function Header(props) {
                             Search
                         </button>
                     </form>
-                    <Link to='/trending'>Trending</Link>
+                    <Link onClick={handleTrending} to='/trending'>Trending</Link>
                 </div>
             </div>
         )

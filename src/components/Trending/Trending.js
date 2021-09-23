@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ApiService from "../../api/api-service";
 import GiphyContext from "../../context/GiphyContext";
 import Gifs from './Gifs'
@@ -8,16 +8,20 @@ export default function Trending() {
 
     const context = useContext(GiphyContext)
 
-    useEffect(() => {
-        let _data
-        ApiService.getTrending()
-            .then(res => {
-                _data = res.data
-                context.setData(_data)
-            })
-    })
+    // const [data, setData] = useState([])
+
+    // useEffect(() => {
+    //     let _data
+    //     ApiService.getTrending()
+    //         .then(res => {
+    //             _data = res.data
+    //             // context.setData(_data)
+    //             setData(_data)
+    //         })
+    // }, [])
 
     function renderTrending() {
+        // context.setData(data)
         const data = context.data
         return data.map(gif =>
             <Gifs
