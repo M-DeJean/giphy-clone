@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import ApiService from "../../api/api-service";
 import GiphyContext from "../../context/GiphyContext";
-import Gifs from './Gifs'
+// import Gifs from './Gifs'
 import '../Search/Search.css'
+
+const Gifs = React.lazy(() => import('./Gifs'))
 
 export default function Trending() {
 
@@ -37,10 +39,11 @@ export default function Trending() {
         return <div> LOADING </div>
     }
 
-        return (
-
-            <div className='gif-list'>
-                {context.data.length ? renderTrending() : renderLoading()}
-            </div>
-        )
+    return (
+        <div className='gif-list'>
+            <React.Suspense fallback={<i className="fas fa-spinner fa-pulse"></i>}>
+                {renderTrending()}
+            </React.Suspense>
+        </div>
+    )
 }

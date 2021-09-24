@@ -1,7 +1,10 @@
 import React, { useContext } from 'react'
 import GiphyContext from '../../context/GiphyContext'
 import './Search.css'
-import Gifs from './Gifs'
+// import Gifs from './Gifs'
+
+const Gifs = React.lazy(() => import('./Gifs'))
+
 export default function Search() {
 
     const context = useContext(GiphyContext)
@@ -18,9 +21,11 @@ export default function Search() {
         )
     }
 
-        return (
-            <div className='gif-list'>
+    return (
+        <div className='gif-list'>
+            <React.Suspense fallback={<i className="fas fa-spinner fa-pulse"></i>}>
                 {renderGifs()}
-            </div>
-        )
-    }
+            </React.Suspense>
+        </div>
+    )
+}

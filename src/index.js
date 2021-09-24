@@ -5,11 +5,8 @@ import { GiphyProvider } from './context/GiphyContext';
 import App from './components/App/App';
 import './index.css';
 
-ReactDOM.render(
-    <BrowserRouter>
-        <GiphyProvider>
-            <App />
-        </GiphyProvider>
-    </BrowserRouter>,
-    document.getElementById('root')
-);
+ReactDOM.createRoot(document.getElementById('root')).render(<BrowserRouter>
+    <GiphyProvider>
+        <App />
+    </GiphyProvider>
+</BrowserRouter>);
