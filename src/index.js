@@ -3,10 +3,15 @@ import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import { GiphyProvider } from './context/GiphyContext';
 import App from './components/App/App';
+import { store } from './components/App/Store'
+import { Provider } from 'react-redux'
 import './index.css';
 
-ReactDOM.createRoot(document.getElementById('root')).render(<BrowserRouter>
-    <GiphyProvider>
-        <App />
-    </GiphyProvider>
-</BrowserRouter>);
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <BrowserRouter>
+        <GiphyProvider>
+            <Provider store={store}> 
+            <App />
+            </Provider>
+        </GiphyProvider>
+    </BrowserRouter>);
