@@ -1,12 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import ApiService from "../../api/api-service";
+import { useGetGifsQuery } from '../../services/gifs';
 import GiphyContext from "../../context/GiphyContext";
 // import Gifs from './Gifs'
 import '../Search/Search.css'
+import { store } from '../../store/store'
 
 const Gifs = React.lazy(() => import('./Gifs'))
 
 export default function Trending() {
+    const { data, error, isLoading, isSuccess, isError } = useGetGifsQuery()
 
     const context = useContext(GiphyContext)
 
@@ -23,14 +26,16 @@ export default function Trending() {
     // }, [])
 
     function renderTrending() {
+        console.log(store.getState())
         // context.setData(data)
-        const data = context.data
-        return data.map(gif =>
-            <Gifs
-                key={gif.id}
-                img={gif.images.fixed_width.webp}
-                id={gif.id}
-            />
+        // const data = context.data
+        return data.data.map(gif =>
+                <Gifs
+                    key={gif.id}
+                    img={gif.images.fixed_width.webp}
+                    id={gif.id}
+                />
+            
         )
 
     }
@@ -41,8 +46,9 @@ export default function Trending() {
 
     return (
         <div className='gif-list'>
-            <React.Suspense fallback={<i className="fas fa-spinner fa-pulse"></i>}>
-                {renderTrending()}
+             <React.Suspense fallback={<i className="fas fa-spinner fa-pulse"></i>}>
+            {/* {console.log(data)} */}
+            {isSuccess && renderTrending()}
             </React.Suspense>
         </div>
     )

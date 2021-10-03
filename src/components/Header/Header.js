@@ -2,13 +2,15 @@ import React, { useState, useContext } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import ApiService from '../../api/api-service'
 import GiphyContext from '../../context/GiphyContext'
+import { useSearchGifsQuery } from '../../services/gifs'
 import "./Header.css"
 
 function Header(props) {
-
     const context = useContext(GiphyContext)
 
     const [search, setSearch] = useState('');
+
+    const{ data, error, isLoading, isSuccess, isError } = useSearchGifsQuery(search)
 
     function handleChange(ev) {
         setSearch(ev.target.value)
@@ -17,6 +19,7 @@ function Header(props) {
     function handleSearch(ev){
         ev.preventDefault()
         let _data
+        setSearch(ev.target.value)
         ApiService.searchGif(search)
             .then(res => {
                 _data = res.data
@@ -26,15 +29,15 @@ function Header(props) {
             })
     }
 
-    function handleTrending(){
-        let _data
-        ApiService.getTrending()
-            .then(res =>{
-                _data = res.data
-                context.setData(_data)
-                // props.history.push('/trending')
-            })
-    }
+    // function handleTrending(){
+    //     let _data
+    //     ApiService.getTrending()
+    //         .then(res =>{
+    //             _data = res.data
+    //             context.setData(_data)
+    //             // props.history.push('/trending')
+    //         })
+    // }
 
 
  
@@ -51,14 +54,14 @@ function Header(props) {
                             placeholder='React Hooks'
                             type='text'
                             value={search}
-                            onChange={handleChange}
+                            // onChange={handleChange}
                             required
                         />
                         <button type='submit'>
                             Search
                         </button>
                     </form>
-                    <Link onClick={handleTrending} to='/trending'>Trending</Link>
+                    <Link to='/trending'>Trending</Link>
                 </div>
             </div>
         )
