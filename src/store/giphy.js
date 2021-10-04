@@ -12,6 +12,9 @@ const slice = createSlice({
     reducers: {
         getGifs: (state, action) => {
             state.data = action.payload
+        },
+        getSearch: (state, action) => {
+            state.data = action.payload
         }
     }
 })
@@ -20,7 +23,7 @@ export default slice.reducer
 
 //Actions
 
-const{ getGifs } = slice.actions
+const{ getGifs, getSearch } = slice.actions
 
 export const fetchGifs = () => async dispatch => {
     try {
@@ -31,4 +34,15 @@ export const fetchGifs = () => async dispatch => {
         return(console.error(e.message))
     }
 }
+
+export const searchGifs = (search) => async dispatch => {
+    try{
+        await ApiService.searchGif(search)
+            .then((res => dispatch(getSearch(res.data))))
+    }
+    catch(e){
+        return(console.error(e.message))
+    }
+}
+
 
