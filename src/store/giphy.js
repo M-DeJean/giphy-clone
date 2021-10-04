@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createApi } from "@reduxjs/toolkit/dist/query";
 import { api } from '../api/api'
 import ApiService from '../api/api-service'
-//Slice
 
+//Slice
 const slice = createSlice({
     name: 'gifs',
     initialState: {
@@ -26,7 +26,6 @@ const slice = createSlice({
 export default slice.reducer
 
 //Actions
-
 const { getGifs, getSearch, getHistory } = slice.actions
 
 export const fetchGifs = () => async dispatch => {
