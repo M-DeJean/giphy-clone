@@ -17,6 +17,9 @@ const slice = createSlice({
         getSearch: (state, action) => {
             state.data = action.payload
         },
+        getRandom: (state, action) => {
+            state.data = action.payload
+        },
         getHistory: (state, action) => {
             state.history = [action.payload, ...state.history]
         }
@@ -26,7 +29,7 @@ const slice = createSlice({
 export default slice.reducer
 
 //Actions
-const { getGifs, getSearch, getHistory } = slice.actions
+const { getGifs, getSearch, getRandom, getHistory } = slice.actions
 
 export const fetchGifs = () => async dispatch => {
     try {
@@ -45,6 +48,16 @@ export const searchGifs = (search) => async dispatch => {
     }
     catch (e) {
         return (console.error(e.message))
+    }
+}
+
+export const randomGifs = () => async dispatch => {
+    try{
+        await ApiService.getRandom()
+            .then((res => dispatch(getRandom(res.data))))
+    }
+    catch (e) {
+        return(console.error(e.message))
     }
 }
 
