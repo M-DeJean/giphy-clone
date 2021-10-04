@@ -4,7 +4,7 @@ import ApiService from '../../api/api-service'
 import GiphyContext from '../../context/GiphyContext'
 import { useGetGifsQuery, useSearchGifsQuery } from '../../services/gifs'
 import { useSelector, useDispatch } from 'react-redux'
-import { searchGifs, fetchGifs } from '../../store/giphy'
+import { searchGifs, fetchGifs , searchHistory} from '../../store/giphy'
 import { store } from '../../store/store'
 import giphy from '../../store/giphy'
 import "./Header.css"
@@ -15,7 +15,7 @@ function Header(props) {
 
     const dispatch = useDispatch()
 
-    const { data } = useSelector(state => state.gifs)
+    const { data, history } = useSelector(state => state.gifs)
 
     const [search, setSearch] = useState('')
     const [result, setResult] = useState('')
@@ -39,6 +39,7 @@ function Header(props) {
         //         // console.log(store.getState())
         //     })
         dispatch(searchGifs(search))
+        dispatch(searchHistory(search))
         console.log(data)
         setSearch('')
         props.history.push('/search')
