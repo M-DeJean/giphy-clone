@@ -1,19 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react';
 import GiphyContext from '../../context/GiphyContext';
+import { store } from '../../store/store'
+import { useSelector } from 'react-redux';
 import './Details.css'
+import { useSearchGifsQuery } from '../../services/gifs';
 
 export default function Details(props) {
 
-    const context = useContext(GiphyContext)
+    // const context = useContext(GiphyContext)
 
     const [details, setDetails] = useState([])
 
+    // console.log(useSelector((state) => state.gifs.queries))
+
+    const { data } = useSelector(state => state.gifs)
+
     useEffect(() => {
-        const { data } = context
+        // const { data } = context
         const id = props.match.params.id
         const gif = data.filter(gif => gif.id === id)
         setDetails(gif)
-    }, [context, props.match.params.id])
+    }, [data, props.match.params.id])
 
     return (
         <div className="details">

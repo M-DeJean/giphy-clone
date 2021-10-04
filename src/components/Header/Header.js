@@ -2,29 +2,36 @@ import React, { useState, useContext } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import ApiService from '../../api/api-service'
 import GiphyContext from '../../context/GiphyContext'
-import { useSearchGifsQuery } from '../../services/gifs'
+import { useGetGifsQuery, useSearchGifsQuery } from '../../services/gifs'
+import { useSelector } from 'react-redux'
+import { store } from '../../store/store'
+import giphy from '../../store/giphy'
 import "./Header.css"
 
 function Header(props) {
+
     const context = useContext(GiphyContext)
-
+    
     const [search, setSearch] = useState('');
-
-    const{ data, error, isLoading, isSuccess, isError } = useSearchGifsQuery(search)
-
+    const [result, setResult] = useState('')
+    
+    const { data, error, isLoading, isSuccess, isError } = useSearchGifsQuery(result)
+    
     function handleChange(ev) {
         setSearch(ev.target.value)
     }
 
+    
     function handleSearch(ev){
         ev.preventDefault()
         let _data
-        setSearch(ev.target.value)
+        setResult(search)
         ApiService.searchGif(search)
             .then(res => {
                 _data = res.data
                 setSearch('')
                 context.setData(_data)
+                // console.log(store.getState())
                 props.history.push('/search')
             })
     }
@@ -54,7 +61,7 @@ function Header(props) {
                             placeholder='React Hooks'
                             type='text'
                             value={search}
-                            // onChange={handleChange}
+                            onChange={handleChange}
                             required
                         />
                         <button type='submit'>

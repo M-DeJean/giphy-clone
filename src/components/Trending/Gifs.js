@@ -7,7 +7,6 @@ export default class Gifs extends Component {
         const id = this.props.id
         return (
             <div className='gif'>
-                <React.Suspense fallback={<h1>GIFS LOADING...</h1>}>
                     <Link
                         to={`search/${id}`}
                     >
@@ -19,7 +18,6 @@ export default class Gifs extends Component {
                         />
 
                     </Link>
-                </React.Suspense>
             </div>
         )
     }

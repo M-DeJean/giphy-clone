@@ -2,16 +2,30 @@ import React, { useContext, useEffect, useState } from "react";
 import ApiService from "../../api/api-service";
 import { useGetGifsQuery } from '../../services/gifs';
 import GiphyContext from "../../context/GiphyContext";
+import { fetchGifs } from '../../store/giphy'
+import { useSelector, useDispatch } from "react-redux";
+
 // import Gifs from './Gifs'
 import '../Search/Search.css'
-import { store } from '../../store/store'
+import store  from '../../store/store'
 
 const Gifs = React.lazy(() => import('./Gifs'))
 
 export default function Trending() {
-    const { data, error, isLoading, isSuccess, isError } = useGetGifsQuery()
+    // const { data, error, isLoading, isSuccess, isError } = useGetGifsQuery()
 
     const context = useContext(GiphyContext)
+
+    const dispatch = useDispatch()
+
+    const { data } = useSelector(state => state.gifs)
+
+    useEffect(() => {
+        dispatch(fetchGifs())
+    }, [dispatch], data)
+
+    console.log(store.getState())
+
 
     // const [data, setData] = useState([])
 
@@ -26,10 +40,10 @@ export default function Trending() {
     // }, [])
 
     function renderTrending() {
-        console.log(store.getState())
+        // console.log(store.getState())
         // context.setData(data)
         // const data = context.data
-        return data.data.map(gif =>
+        return data.map(gif =>
                 <Gifs
                     key={gif.id}
                     img={gif.images.fixed_width.webp}
@@ -48,7 +62,7 @@ export default function Trending() {
         <div className='gif-list'>
              <React.Suspense fallback={<i className="fas fa-spinner fa-pulse"></i>}>
             {/* {console.log(data)} */}
-            {isSuccess && renderTrending()}
+            {renderTrending()}
             </React.Suspense>
         </div>
     )
