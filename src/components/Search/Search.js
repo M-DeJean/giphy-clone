@@ -1,20 +1,13 @@
-import React, { useContext } from 'react'
-import GiphyContext from '../../context/GiphyContext'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import './Search.css'
-// import Gifs from './Gifs'
-
-const Gifs = React.lazy(() => import('./Gifs'))
+import Gifs from './Gifs'
 
 export default function Search() {
-
+    //Accessing state from Redux store
     const { data } = useSelector(state => state.gifs)
 
-    const context = useContext(GiphyContext)
-    // static contextType = GiphyContext
-
     function renderGifs() {
-        // const { data } = context
         return data.map(data =>
             <Gifs
                 key={data.id}
@@ -26,9 +19,7 @@ export default function Search() {
 
     return (
         <div className='gif-list'>
-            <React.Suspense fallback={<i className="fas fa-spinner fa-pulse"></i>}>
-                {renderGifs()}
-            </React.Suspense>
+            {renderGifs()}
         </div>
     )
 }

@@ -31,6 +31,9 @@ form .search-bar{
     width: 90%;
     text-align: left;
     padding-left: 6px;
+    right: 20px;
+    border:none;
+    outline: none;
 }
 
 .header a{
@@ -41,11 +44,13 @@ form .search-bar{
 }
 
 form button{
+    position:absolute;
+    right: 90px;
     font-size: medium;
     cursor: pointer;
     width: 70px;
     font-weight: 900;
-    height: 58px;
+    height: 54px;
     color: white;
     background-color: darkslateblue;
     border-style: none;
@@ -56,7 +61,6 @@ form button:active{
 }
 
 .history{
-
     margin: 0px auto;
     background-color: white;
     width: 842px;
@@ -86,4 +90,9 @@ form button:active{
 
 .historyItem p{
     margin-left: 10px;
+}
+
+.fa-search{
+    color: white;
+    font-size: 30px;
 }

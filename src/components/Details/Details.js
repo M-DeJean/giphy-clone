@@ -1,23 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
-import GiphyContext from '../../context/GiphyContext';
-import { store } from '../../store/store'
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './Details.css'
-import { useSearchGifsQuery } from '../../services/gifs';
 
 export default function Details(props) {
-
-    // const context = useContext(GiphyContext)
-
+    //Saving filtered gif in state to use for individual view
     const [details, setDetails] = useState([])
 
-    // console.log(useSelector((state) => state.gifs.queries))
-
+    //Accessing data from redux store
     const { data } = useSelector(state => state.gifs)
 
     useEffect(() => {
-        // const { data } = context
         const id = props.match.params.id
+        //Filtering out individual gif based on ID in url
         const gif = data.filter(gif => gif.id === id)
         setDetails(gif)
     }, [data, props.match.params.id])
