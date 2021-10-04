@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import GiphyContext from '../../context/GiphyContext'
+import { useSelector } from 'react-redux'
 import './Search.css'
 // import Gifs from './Gifs'
 
@@ -7,11 +8,13 @@ const Gifs = React.lazy(() => import('./Gifs'))
 
 export default function Search() {
 
+    const { data } = useSelector(state => state.gifs)
+
     const context = useContext(GiphyContext)
     // static contextType = GiphyContext
 
     function renderGifs() {
-        const { data } = context
+        // const { data } = context
         return data.map(data =>
             <Gifs
                 key={data.id}
