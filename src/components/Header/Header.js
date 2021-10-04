@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext} from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import ApiService from '../../api/api-service'
 import GiphyContext from '../../context/GiphyContext'
 import { useGetGifsQuery, useSearchGifsQuery } from '../../services/gifs'
 import { useSelector, useDispatch } from 'react-redux'
-import { searchGifs, fetchGifs, searchHistory } from '../../store/giphy'
+import { searchGifs, fetchGifs, searchHistory, randomGifs } from '../../store/giphy'
 import { store } from '../../store/store'
 import giphy from '../../store/giphy'
 import "./Header.css"
@@ -77,7 +77,7 @@ function Header(props) {
                 </Link>
                 <form onSubmit={handleSearch}>
                     <input className='search-bar'
-                        placeholder='React Hooks'
+                        placeholder='Redux'
                         type='text'
                         value={search}
                         onChange={handleChange}

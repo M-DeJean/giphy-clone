@@ -28,4 +28,46 @@ const ApiService = {
     }
 }
 
+export const suspend = promise => {
+    let result
+    let status = 'pending'
+    const suspender = promise.then(res => {
+        status = 'success'
+        result = res
+    }, error => {
+        status = 'error'
+        result = error
+    })
+
+    return () => {
+        switch(status) {
+            case 'pending':
+                throw suspender
+            case 'error':
+                throw result
+            default:
+                return result
+        }
+    }
+}
+
+// const ApiService = {
+//     searchGifs: suspend(Apis.searchGif()),
+//     getTrending: suspend(Apis.getTrending()),
+//     getRandom: suspend(Apis.getRandom())
+    
+// }
+
+// const suspend = promise => {
+//     let result;
+//     let status = 'pending';
+//     const suspender = promise.then(response => {
+//         status = 'success';
+//         result = response;
+//     }, error => {
+//         status = 'error';
+//         result = error;
+//     });
+// }
+
 export default ApiService

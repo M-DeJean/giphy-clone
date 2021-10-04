@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createApi } from "@reduxjs/toolkit/dist/query";
 import { api } from '../api/api'
 import ApiService from '../api/api-service'
+import { suspend } from "../api/api-service";
+// import suspend from '../api/api-service'
 
 //Slice
 const slice = createSlice({
