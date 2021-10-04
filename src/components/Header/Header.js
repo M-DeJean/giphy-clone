@@ -4,7 +4,7 @@ import ApiService from '../../api/api-service'
 import GiphyContext from '../../context/GiphyContext'
 import { useGetGifsQuery, useSearchGifsQuery } from '../../services/gifs'
 import { useSelector, useDispatch } from 'react-redux'
-import { searchGifs } from '../../store/giphy'
+import { searchGifs, fetchGifs } from '../../store/giphy'
 import { store } from '../../store/store'
 import giphy from '../../store/giphy'
 import "./Header.css"
@@ -43,16 +43,18 @@ function Header(props) {
         setSearch('')
         props.history.push('/search')
     }
+    
 
-    // function handleTrending(){
-    //     let _data
-    //     ApiService.getTrending()
-    //         .then(res =>{
-    //             _data = res.data
-    //             context.setData(_data)
-    //             // props.history.push('/trending')
-    //         })
-    // }
+    function handleTrending(){
+        // let _data
+        // ApiService.getTrending()
+        //     .then(res =>{
+        //         _data = res.data
+        //         context.setData(_data)
+        //         props.history.push('/trending')
+        //     })
+        dispatch(fetchGifs())
+    }
 
 
 
@@ -76,7 +78,7 @@ function Header(props) {
                         Search
                     </button>
                 </form>
-                <Link to='/trending'>Trending</Link>
+                <Link onClick={handleTrending} to='/trending'>Trending</Link>
             </div>
         </div>
     )

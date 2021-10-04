@@ -20,14 +20,14 @@ export default function App() {
         <Header />
         <Route
           exact
-          path={'/search'}
+          path={'/:search'}
           component={(props) => <Search {...props} />}
         />
-        <Route
+        {/* <Route
           exact
           path={'/trending'}
           component={(props) => <Trending {...props} />}
-        />
+        /> */}
         <Route
           exact
           path={'/:url/:id'}
